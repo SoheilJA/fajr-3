@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تماس با فجرفیلم | موسسه فرهنگی هنری فجرفیلم</title>
+  <meta name="description" content="با موسسه فرهنگی هنری فجرفیلم تماس بگیرید. فرم تماس، اطلاعات کامل تماس، نقشه و پرسش‌های متداول درباره خدمات و فرایند همکاری." />
+  <meta name="theme-color" content="#0D2819" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="تماس با فجرفیلم" />
+  <meta property="og:description" content="با ما در ارتباط باشید؛ قصه‌تان را در دل نور ببینید." />
+  <meta property="og:image" content="https://placehold.co/1200x630/0D2819/C5DCCC?text=Contact+Fajr+Film" />
+  <meta property="og:locale" content="fa_IR" />
+  <meta property="og:site_name" content="فجرفیلم" />
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230D2819'/><circle cx='50' cy='50' r='28' fill='none' stroke='%23861A1A' stroke-width='6'/><circle cx='50' cy='50' r='6' fill='%23C5DCCC'/></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'fajr-red': '#861A1A',
+            'fajr-dark': '#0D2819',
+            'fajr-sage': '#C5DCCC',
+            'fajr-white': '#FFFFFF'
+          },
+          fontFamily: { sans: ['Vazirmatn', 'system-ui', 'sans-serif'] }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="assets/css/custom.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body class="bg-white text-fajr-dark font-sans antialiased overflow-x-hidden">
+
+  <!-- Preloader -->
+  <div id="fajr-preloader">
+    <div class="preloader-inner">
+      <div class="preloader-ring"></div>
+      <div class="preloader-count fa-num">۳</div>
+    </div>
+    <div class="preloader-wordmark">FAJR&nbsp;FILM</div>
+  </div>
+
+  <!-- Cursor -->
+  <div class="fajr-cursor-dot"></div>
+  <div class="fajr-cursor-ring"></div>
+
+  <!-- Page transition -->
+  <div id="fajr-page-transition"></div>
+
+  <!-- Scroll progress -->
+  <div id="fajr-scroll-progress"><div class="bar"></div></div>
+
+  <!-- Grain -->
+  <div id="fajr-grain"></div>
+
+  <!-- Global dust -->
+  <canvas id="three-global-dust" class="three-bg fixed inset-0 z-0 pointer-events-none"></canvas>
+
+  <!-- Navbar -->
+  <header id="fajr-navbar" class="fixed top-0 inset-x-0 z-[9970] transition-all duration-500">
+    <nav class="max-w-[1400px] mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group" aria-label="فجرفیلم — خانه">
+        <svg class="w-10 h-10 spin-slow" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="#C5DCCC" stroke-width="2" opacity="0.3"/>
+          <circle cx="50" cy="50" r="30" fill="none" stroke="#861A1A" stroke-width="3"/>
+          <circle cx="50" cy="50" r="14" fill="none" stroke="#C5DCCC" stroke-width="2"/>
+          <circle cx="50" cy="50" r="5" fill="#C5DCCC"/>
+          <g stroke="#C5DCCC" stroke-width="2" stroke-linecap="round">
+            <line x1="50" y1="8" x2="50" y2="18"/>
+            <line x1="50" y1="82" x2="50" y2="92"/>
+            <line x1="8" y1="50" x2="18" y2="50"/>
+            <line x1="82" y1="50" x2="92" y2="50"/>
+          </g>
+        </svg>
+        <div class="leading-tight">
+          <div class="text-fajr-sage font-light tracking-[6px] text-xs">FAJR FILM</div>
+          <div class="text-white font-extrabold text-lg">فجرفیلم</div>
+        </div>
+      </a>
+      <ul class="hidden lg:flex items-center gap-10 text-white/90 text-sm">
+        <li><a href="index.html" class="nav-link">خانه</a></li>
+        <li><a href="about.html" class="nav-link">درباره ما</a></li>
+        <li><a href="index.html#services" class="nav-link">خدمات</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">نمونه‌کارها</a></li>
+        <li><a href="index.html#blog" class="nav-link">وبلاگ</a></li>
+        <li><a href="contact.html" class="nav-link active">تماس</a></li>
+      </ul>
+      <a href="contact.html" class="hidden lg:inline-flex magnetic items-center gap-2 bg-fajr-red text-white px-6 py-2.5 text-sm font-bold tracking-wide hover:bg-[#a02323] transition-colors">
+        <span class="magnetic-inner">شروع پروژه</span>
+        <svg class="w-4 h-4 arrow-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <button id="fajr-burger" class="lg:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5" aria-label="منو">
+        <span class="block w-6 h-0.5 bg-white transition-all duration-300"></span>
+        <span class="block w-6 h-0.5 bg-white transition-all duration-300"></span>
+        <span class="block w-6 h-0.5 bg-white transition-all duration-300"></span>
+      </button>
+    </nav>
+  </header>
+
+  <div id="fajr-mobile-menu" class="hidden fixed inset-0 z-[9965] bg-fajr-dark/98 backdrop-blur-xl flex-col items-center justify-center gap-8 text-white text-2xl">
+    <a href="index.html" data-stagger class="nav-link">خانه</a>
+    <a href="about.html" data-stagger class="nav-link">درباره ما</a>
+    <a href="index.html#services" data-stagger class="nav-link">خدمات</a>
+    <a href="index.html#portfolio" data-stagger class="nav-link">نمونه‌کارها</a>
+    <a href="index.html#blog" data-stagger class="nav-link">وبلاگ</a>
+    <a href="contact.html" data-stagger class="nav-link active">تماس</a>
+    <a href="contact.html" data-stagger class="mt-6 bg-fajr-red px-8 py-3 text-base font-bold">شروع پروژه</a>
+  </div>
+
+  <main class="relative z-10">
+
+    <!-- ====================================================
+         HERO — Contact (3D spotlight)
+         ==================================================== -->
+    <section class="relative min-h-[70vh] flex items-center justify-center bg-fajr-dark text-white fajr-vignette overflow-hidden">
+      <div id="three-contact-wrap" class="absolute inset-0">
+        <canvas id="three-contact" class="three-canvas"></canvas>
+      </div>
+      <div class="absolute top-0 inset-x-0 h-9 bg-black z-30"></div>
+      <div class="relative z-10 max-w-[1400px] mx-auto px-5 md:px-8 pt-32 pb-16 text-center">
+        <div class="flex items-center justify-center gap-2 text-fajr-sage/60 text-xs mb-8">
+          <a href="index.html" class="hover:text-fajr-sage transition-colors">خانه</a>
+          <span>/</span>
+          <span class="text-fajr-sage">تماس</span>
+        </div>
+        <div class="text-fajr-red text-xs tracking-[6px] mb-4 font-bold">SCENE 01 — CONTACT</div>
+        <h1 class="text-5xl md:text-8xl font-extrabold leading-[1.05] mb-8 text-balance" data-reveal="lines" data-lines="با ما|تماس بگیرید.">
+          با ما تماس بگیرید.
+        </h1>
+        <p class="text-fajr-sage/85 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed" data-reveal="lines" data-lines="قصهٔ شما،|در دل نور.">
+          قصه‌تان را در دل نور ببینید.
+        </p>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         FORM + INFO
+         Dark section
+         ==================================================== -->
+    <section class="relative bg-fajr-dark text-white py-24 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12">
+
+        <!-- Form (left/RTL) -->
+        <div class="lg:col-span-7">
+          <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 02 — FORM</div>
+          <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">پروژه‌تان را تعریف کنید</h2>
+          <p class="text-fajr-sage/70 font-light leading-relaxed mb-10 max-w-2xl">
+            هر ایده‌ای، شایستهٔ روایت است. فرم زیر را پر کنید؛ تیم ما در کمتر از ۲۴ ساعت با شما تماس می‌گیرد تا نخستین گام‌های همکاری را هم‌سو کنیم.
+          </p>
+
+          <!-- Form -->
+          <form id="fajr-contact-form" novalidate>
+            <div class="grid sm:grid-cols-2 gap-6">
+              <!-- Name -->
+              <div class="floating-field">
+                <input type="text" id="name" name="name" placeholder=" " required minlength="3" />
+                <label for="name">نام و نام خانوادگی</label>
+                <span class="field-success-tick">✓</span>
+                <div class="focus-underline"></div>
+              </div>
+              <!-- Email -->
+              <div class="floating-field">
+                <input type="email" id="email" name="email" placeholder=" " required />
+                <label for="email">ایمیل</label>
+                <span class="field-success-tick">✓</span>
+                <div class="focus-underline"></div>
+              </div>
+              <!-- Phone -->
+              <div class="floating-field">
+                <input type="tel" id="phone" name="phone" placeholder=" " pattern="[0-9+\s-]{8,}" />
+                <label for="phone">تلفن تماس</label>
+                <span class="field-success-tick">✓</span>
+                <div class="focus-underline"></div>
+              </div>
+              <!-- Subject (dropdown of services) -->
+              <div class="floating-field">
+                <select id="subject" name="subject" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="photography">عکاسی</option>
+                  <option value="voice">گویندگی و صداگذاری</option>
+                  <option value="music">آهنگسازی</option>
+                  <option value="web">طراحی سایت</option>
+                  <option value="social">سوشال مدیا</option>
+                  <option value="shortfilm">فیلم کوتاه</option>
+                  <option value="tv">تلویزیون</option>
+                  <option value="documentary">مستند</option>
+                  <option value="costume">طراحی لباس و صحنه</option>
+                  <option value="other">سایر</option>
+                </select>
+                <label for="subject">موضوع</label>
+                <span class="field-success-tick">✓</span>
+                <div class="focus-underline"></div>
+              </div>
+            </div>
+            <!-- Message -->
+            <div class="floating-field mt-6">
+              <textarea id="message" name="message" rows="5" placeholder=" " required minlength="10"></textarea>
+              <label for="message">پیام شما</label>
+              <span class="field-success-tick">✓</span>
+              <div class="focus-underline"></div>
+            </div>
+
+            <!--
+              ===== BACKEND HOOK =====
+              جای اتصال به بک‌اند: در main.js تابع initContactForm این فرم را کنترل می‌کند.
+              برای اتصال واقعی، در همان تابع، بلاک setTimeout را با fetch() به API خود جایگزین کنید.
+              مثال:
+                fetch('/api/contact', { method: 'POST', body: new FormData(form) })
+                  .then(res => res.json())
+                  .then(data => { ... })
+            -->
+
+            <button type="submit"
+                    class="magnetic mt-10 inline-flex items-center gap-3 bg-fajr-red text-white px-10 py-4 font-extrabold hover:bg-[#a02323] transition-colors">
+              <span class="magnetic-inner">ارسال پیام</span>
+              <svg class="w-5 h-5 arrow-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </form>
+
+          <!-- Success state -->
+          <div id="form-success" class="hidden mt-10 p-8 border border-fajr-sage/30 bg-fajr-sage/5">
+            <div class="text-fajr-sage text-5xl font-extrabold mb-4">✓</div>
+            <h3 class="text-2xl font-extrabold mb-2">پیام شما رسید!</h3>
+            <p class="text-fajr-sage/80 font-light leading-relaxed">
+              ممنون از اعتماد شما. تیم فجرفیلم در کمتر از ۲۴ ساعت با شما تماس می‌گیرد. قصه‌تان را با هم روایت می‌کنیم.
+            </p>
+            <button onclick="document.getElementById('form-success').classList.add('hidden'); document.getElementById('fajr-contact-form').classList.remove('hidden'); document.getElementById('fajr-contact-form').reset();"
+                    class="mt-6 text-fajr-red text-sm font-bold border-b border-fajr-red/40 hover:border-fajr-red pb-1 transition-colors">
+              ارسال پیام جدید
+            </button>
+          </div>
+        </div>
+
+        <!-- Info cards -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 03 — INFO</div>
+          <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mb-8">راه‌های ارتباطی</h2>
+
+          <!-- Address -->
+          <div class="group flex items-start gap-5 p-6 border border-fajr-sage/20 hover:border-fajr-red hover:bg-fajr-red/5 transition-all">
+            <div class="w-12 h-12 bg-fajr-red flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="text-fajr-sage text-xs tracking-[4px] mb-1">ADDRESS</div>
+              <div class="font-extrabold mb-1">نشانی</div>
+              <div class="text-fajr-sage/70 text-sm font-light leading-relaxed">تهران، خیابان ولیعصر، بالاتر از پارک‌وی، پلاک ۸۶، طبقهٔ سوم</div>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="group flex items-start gap-5 p-6 border border-fajr-sage/20 hover:border-fajr-red hover:bg-fajr-red/5 transition-all">
+            <div class="w-12 h-12 bg-fajr-red flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="text-fajr-sage text-xs tracking-[4px] mb-1">PHONE</div>
+              <div class="font-extrabold mb-1">تلفن تماس</div>
+              <div class="text-fajr-sage/70 text-sm font-light fa-num" dir="ltr">۰۲۱ ۸۸ ۷۷ ۶۶ ۵۵</div>
+              <div class="text-fajr-sage/50 text-xs font-light mt-1" dir="ltr">۰۹۱۲ ۳۴۵ ۶۷۸۹</div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="group flex items-start gap-5 p-6 border border-fajr-sage/20 hover:border-fajr-red hover:bg-fajr-red/5 transition-all">
+            <div class="w-12 h-12 bg-fajr-red flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            </div>
+            <div>
+              <div class="text-fajr-sage text-xs tracking-[4px] mb-1">EMAIL</div>
+              <div class="font-extrabold mb-1">پست الکترونیک</div>
+              <div class="text-fajr-sage/70 text-sm font-light" dir="ltr">hello@fajrfilm.ir</div>
+              <div class="text-fajr-sage/50 text-xs font-light" dir="ltr">studio@fajrfilm.ir</div>
+            </div>
+          </div>
+
+          <!-- Hours -->
+          <div class="group flex items-start gap-5 p-6 border border-fajr-sage/20 hover:border-fajr-red hover:bg-fajr-red/5 transition-all">
+            <div class="w-12 h-12 bg-fajr-red flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div>
+              <div class="text-fajr-sage text-xs tracking-[4px] mb-1">HOURS</div>
+              <div class="font-extrabold mb-1">ساعات کاری</div>
+              <div class="text-fajr-sage/70 text-sm font-light leading-relaxed">
+                شنبه تا چهارشنبه: <span class="fa-num">۹</span> تا <span class="fa-num">۱۸</span><br/>
+                پنجشنبه: <span class="fa-num">۹</span> تا <span class="fa-num">۱۳</span><br/>
+                جمعه: تعطیل
+              </div>
+            </div>
+          </div>
+
+          <!-- Social links with magnetic hover -->
+          <div class="pt-6">
+            <div class="text-fajr-red text-xs tracking-[4px] mb-4 font-bold">SOCIAL</div>
+            <div class="flex gap-4">
+              <a href="#" class="magnetic w-12 h-12 border border-fajr-sage/30 flex items-center justify-center hover:bg-fajr-red hover:border-fajr-red transition-colors" aria-label="اینستاگرام">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+              </a>
+              <a href="#" class="magnetic w-12 h-12 border border-fajr-sage/30 flex items-center justify-center hover:bg-fajr-red hover:border-fajr-red transition-colors" aria-label="تلگرام">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.6l-3.2 14.96c-.24 1.06-.88 1.32-1.78.82l-4.92-3.62-2.37 2.28c-.26.26-.48.48-.98.48l.35-4.96 9.04-8.16c.4-.35-.09-.55-.62-.2L6.43 13.06l-4.86-1.52c-1.06-.33-1.08-1.06.22-1.57l18.96-7.31c.88-.32 1.65.2 1.36 1.94z"/></svg>
+              </a>
+              <a href="#" class="magnetic w-12 h-12 border border-fajr-sage/30 flex items-center justify-center hover:bg-fajr-red hover:border-fajr-red transition-colors" aria-label="یوتیوب">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.46-5.18a3 3 0 00-2.12-2.12C18.74 4.24 12 4.24 12 4.24s-6.74 0-8.42.46a3 3 0 00-2.12 2.12C1 8.5 1 12 1 12s0 3.5.46 5.18a3 3 0 002.12 2.12c1.68.46 8.42.46 8.42.46s6.74 0 8.42-.46a3 3 0 002.12-2.12C23 15.5 23 12 23 12zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+              </a>
+              <a href="#" class="magnetic w-12 h-12 border border-fajr-sage/30 flex items-center justify-center hover:bg-fajr-red hover:border-fajr-red transition-colors" aria-label="لینکدین">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zM8.34 18.34V10.5H5.67v7.84h2.67zM7 9.34a1.55 1.55 0 100-3.1 1.55 1.55 0 000 3.1zM18.34 18.34v-4.3c0-2.3-1.23-3.37-2.87-3.37-1.32 0-1.91.73-2.24 1.24v-1.06h-2.67c.04.75 0 7.84 0 7.84h2.67v-4.38c0-.24.02-.48.09-.65.18-.48.62-.98 1.34-.98.95 0 1.33.72 1.33 1.78v4.23h2.35z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================
+         MAP BLOCK
+         Light section with animated pin
+         ==================================================== -->
+    <section class="relative bg-white py-24 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8">
+        <div class="text-center mb-12">
+          <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 04 — LOCATION</div>
+          <h2 class="text-4xl md:text-6xl font-extrabold text-fajr-dark leading-tight">ما را پیدا کنید</h2>
+          <p class="mt-4 text-fajr-dark/60 max-w-2xl mx-auto font-light">
+            استودیوی ما در قلب تهران است؛ خیابان ولیعصر، نزدیک پارک‌وی. منتظر دیدار شما هستیم.
+          </p>
+        </div>
+        <!-- Styled placeholder map -->
+        <div class="relative aspect-[21/9] bg-fajr-sage/20 overflow-hidden border border-fajr-sage/40">
+          <!-- abstract grid lines -->
+          <svg class="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 100 50" preserveAspectRatio="none">
+            <defs>
+              <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
+                <path d="M 5 0 L 0 0 0 5" fill="none" stroke="#0D2819" stroke-width="0.1"/>
+              </pattern>
+            </defs>
+            <rect width="100" height="50" fill="url(#grid)"/>
+            <!-- main streets -->
+            <path d="M0 25 L100 25" stroke="#0D2819" stroke-width="0.4" opacity="0.5"/>
+            <path d="M50 0 L50 50" stroke="#0D2819" stroke-width="0.4" opacity="0.5"/>
+            <path d="M0 0 L100 50" stroke="#0D2819" stroke-width="0.2" opacity="0.3"/>
+            <path d="M0 50 L100 0" stroke="#0D2819" stroke-width="0.2" opacity="0.3"/>
+          </svg>
+          <!-- gradient overlay -->
+          <div class="absolute inset-0 bg-gradient-to-br from-fajr-sage/40 via-transparent to-fajr-red/10"></div>
+          <!-- pin -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div class="map-pin"></div>
+          </div>
+          <!-- label -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-6 mt-2 text-center">
+            <div class="bg-fajr-dark text-white px-4 py-2 text-sm font-bold inline-block">فجرفیلم</div>
+            <div class="text-fajr-dark/70 text-xs mt-1 font-light">خیابان ولیعصر، پلاک ۸۶</div>
+          </div>
+          <!-- corner labels -->
+          <div class="absolute top-4 right-4 text-fajr-dark/40 text-xs tracking-[4px]">N</div>
+          <div class="absolute bottom-4 left-4 text-fajr-dark/40 text-xs tracking-[4px]">TEHRAN · 35.7°N 51.4°E</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         FAQ ACCORDION
+         Dark section
+         ==================================================== -->
+    <section class="relative bg-fajr-dark text-white py-24 md:py-32">
+      <div class="max-w-3xl mx-auto px-5 md:px-8">
+        <div class="text-center mb-16">
+          <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 05 — FAQ</div>
+          <h2 class="text-4xl md:text-6xl font-extrabold leading-tight">پرسش‌های متداول</h2>
+          <p class="mt-4 text-fajr-sage/70 max-w-2xl mx-auto font-light">
+            پاسخ پرسش‌های پرتکرار درباره خدمات و فرایند همکاری با فجرفیلم.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <!-- Item 1 -->
+          <div data-accordion-item class="border border-fajr-sage/20">
+            <button data-accordion-head class="w-full text-right p-5 flex items-center justify-between hover:bg-fajr-sage/5 transition-colors">
+              <span class="font-extrabold text-lg">فرایند همکاری چگونه آغاز می‌شود؟</span>
+              <svg class="accordion-icon w-5 h-5 text-fajr-red transition-transform flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div data-accordion-body class="px-5">
+              <p class="text-fajr-sage/80 font-light leading-relaxed pb-5">
+                پس از پر کردن فرم تماس یا تماس تلفنی، در کمتر از ۲۴ ساعت یک جلسهٔ مشاورهٔ اولیه (حضوری یا آنلاین) تنظیم می‌کنیم. در این جلسه، ایده، اهداف، بودجه و زمان‌بندی پروژه را بررسی می‌کنیم و در صورت توافق، قرارداد همکاری امضا می‌شود و کار پیش‌تولید آغاز می‌گردد.
+              </p>
+            </div>
+          </div>
+          <!-- Item 2 -->
+          <div data-accordion-item class="border border-fajr-sage/20">
+            <button data-accordion-head class="w-full text-right p-5 flex items-center justify-between hover:bg-fajr-sage/5 transition-colors">
+              <span class="font-extrabold text-lg">حداقل بودجه برای شروع پروژه چقدر است؟</span>
+              <svg class="accordion-icon w-5 h-5 text-fajr-red transition-transform flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div data-accordion-body class="px-5">
+              <p class="text-fajr-sage/80 font-light leading-relaxed pb-5">
+                ما پروژه‌هایی در مقیاس‌های مختلف انجام می‌دهیم؛ از تیزرهای کوتاه با بودجه‌های فشرده تا کمپین‌های بزرگ رسانه‌ای. حداقل بودجهٔ ثابتی نداریم، چون هر پروژه با نیازها و پیچیدگی‌های خودش قیمت‌گذاری می‌شود. در جلسهٔ مشاوره، با توجه به دامنهٔ کار، قیمت دقیق ارائه می‌شود.
+              </p>
+            </div>
+          </div>
+          <!-- Item 3 -->
+          <div data-accordion-item class="border border-fajr-sage/20">
+            <button data-accordion-head class="w-full text-right p-5 flex items-center justify-between hover:bg-fajr-sage/5 transition-colors">
+              <span class="font-extrabold text-lg">زمان تحویل پروژه چقدر است؟</span>
+              <svg class="accordion-icon w-5 h-5 text-fajr-red transition-transform flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div data-accordion-body class="px-5">
+              <p class="text-fajr-sage/80 font-light leading-relaxed pb-5">
+                زمان تحویل به نوع و دامنهٔ پروژه بستگی دارد. یک تیزر تبلیغاتی کوتاه می‌تواند در ۲ هفته تحویل شود، در حالی که یک فیلم کوتاه داستانی ۳ تا ۶ ماه زمان می‌برد. مستندهای بلند نیز معمولاً ۴ تا ۸ ماه به طول می‌انجامند. در قرارداد، زمان‌بندی دقیق هر مرحله ذکر می‌شود.
+              </p>
+            </div>
+          </div>
+          <!-- Item 4 -->
+          <div data-accordion-item class="border border-fajr-sage/20">
+            <button data-accordion-head class="w-full text-right p-5 flex items-center justify-between hover:bg-fajr-sage/5 transition-colors">
+              <span class="font-extrabold text-lg">آیا خارج از تهران هم کار می‌کنید؟</span>
+              <svg class="accordion-icon w-5 h-5 text-fajr-red transition-transform flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div data-accordion-body class="px-5">
+              <p class="text-fajr-sage/80 font-light leading-relaxed pb-5">
+                بله. فجرفیلم پروژه‌هایی در شهرستان‌های مختلف و حتی خارج از کشور انجام داده است. هزینهٔ سفر و اقامت تیم، جداگانه در قرارداد لحاظ می‌شود. برای پروژه‌های خارج از تهران، حداقل زمان‌بندی متفاوت است و در جلسهٔ مشاوره اعلام می‌گردد.
+              </p>
+            </div>
+          </div>
+          <!-- Item 5 -->
+          <div data-accordion-item class="border border-fajr-sage/20">
+            <button data-accordion-head class="w-full text-right p-5 flex items-center justify-between hover:bg-fajr-sage/5 transition-colors">
+              <span class="font-extrabold text-lg">حق مالکیت آثار نهایی با کیست؟</span>
+              <svg class="accordion-icon w-5 h-5 text-fajr-red transition-transform flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div data-accordion-body class="px-5">
+              <p class="text-fajr-sage/80 font-light leading-relaxed pb-5">
+                پس از تسویهٔ نهایی، حق مالکیت کامل آثار نهایی (فیلم، عکس، صدا، موسیقی، طراحی) به مشتری منتقل می‌شود. فجرفیلم تنها حق استفادهٔ محدود از نمونه‌کارها در پورتفولیوی خود را نگه می‌دارد، مگر آنکه در قرارداد موارد محرمانه ذکر شده باشد.
+              </p>
+            </div>
+          </div>
+          <!-- Item 6 -->
+          <div data-accordion-item class="border border-fajr-sage/20">
+            <button data-accordion-head class="w-full text-right p-5 flex items-center justify-between hover:bg-fajr-sage/5 transition-colors">
+              <span class="font-extrabold text-lg">آیا پس از تحویل، پشتیبانی ارائه می‌دهید؟</span>
+              <svg class="accordion-icon w-5 h-5 text-fajr-red transition-transform flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div data-accordion-body class="px-5">
+              <p class="text-fajr-sage/80 font-light leading-relaxed pb-5">
+                بله. برای پروژه‌های وب و سوشال مدیا، قراردادهای پشتیبانی ماهانه داریم. برای پروژه‌های تولید فیلم نیز، اصلاحات جزئی تا ۱۴ روز پس از تحویل رایگان است. پشتیبانی طولانی‌مدت و ویرایش‌های اساسی، با هزینهٔ جداگانه انجام می‌شود.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         FINAL CTA BAND
+         ==================================================== -->
+    <section class="relative bg-fajr-red text-white py-24 md:py-32 overflow-hidden">
+      <div class="absolute inset-0 light-leak opacity-50"></div>
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8 text-center relative z-10">
+        <div class="text-white/60 text-xs tracking-[6px] mb-4 font-bold">SCENE 06 — BEGIN</div>
+        <h2 class="text-4xl md:text-7xl font-extrabold leading-tight mb-8 text-balance" data-reveal="lines" data-lines="نخستین صحنه|از شما آغاز|می‌شود.">
+          آغاز کنید.
+        </h2>
+        <p class="text-white/85 text-lg md:text-xl font-light max-w-2xl mx-auto mb-12 leading-relaxed">
+          یک ایمیل کافی است. قصهٔ شما، منتظر دیده شدن است.
+        </p>
+        <a href="mailto:hello@fajrfilm.ir" class="magnetic inline-flex items-center gap-3 bg-white text-fajr-red px-10 py-5 font-extrabold text-lg hover:bg-fajr-sage transition-colors">
+          <span class="magnetic-inner">hello@fajrfilm.ir</span>
+          <svg class="w-5 h-5 arrow-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ Footer ============ -->
+    <footer class="bg-fajr-dark text-white pt-24 pb-10 relative overflow-hidden">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8">
+        <div class="grid md:grid-cols-12 gap-12 mb-16">
+          <div class="md:col-span-5">
+            <div class="flex items-center gap-3 mb-6">
+              <svg class="w-10 h-10" viewBox="0 0 100 100" aria-hidden="true">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#C5DCCC" stroke-width="2" opacity="0.3"/>
+                <circle cx="50" cy="50" r="30" fill="none" stroke="#861A1A" stroke-width="3"/>
+                <circle cx="50" cy="50" r="14" fill="none" stroke="#C5DCCC" stroke-width="2"/>
+                <circle cx="50" cy="50" r="5" fill="#C5DCCC"/>
+              </svg>
+              <div>
+                <div class="text-fajr-sage font-light tracking-[6px] text-xs">FAJR FILM</div>
+                <div class="font-extrabold text-lg">فجرفیلم</div>
+              </div>
+            </div>
+            <p class="text-fajr-sage/70 text-sm font-light leading-relaxed mb-6 max-w-md">
+              موسسه فرهنگی هنری فجرفیلم؛ از ایده تا انتشار، همهٔ نیازهای یک تولید سینمایی، زیر یک سقف.
+            </p>
+            <div data-newsletter class="relative max-w-sm">
+              <input type="email" placeholder="ایمیل خود را وارد کنید" class="w-full bg-transparent border-b border-fajr-sage/30 text-white py-3 pr-2 pl-12 outline-none text-sm" aria-label="ایمیل برای خبرنامه" />
+              <button class="absolute left-0 top-1/2 -translate-y-1/2 text-fajr-red" aria-label="عضویت">
+                <svg class="w-5 h-5 arrow-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+              <div class="nl-line absolute bottom-0 right-0 h-0.5 bg-fajr-red" style="width:0%"></div>
+            </div>
+          </div>
+          <div class="md:col-span-2">
+            <h4 class="text-fajr-red text-xs tracking-[4px] font-bold mb-5">صفحات</h4>
+            <ul class="space-y-3 text-sm font-light">
+              <li><a href="index.html" class="text-fajr-sage/80 hover:text-white transition-colors">خانه</a></li>
+              <li><a href="about.html" class="text-fajr-sage/80 hover:text-white transition-colors">درباره ما</a></li>
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">خدمات</a></li>
+              <li><a href="index.html#portfolio" class="text-fajr-sage/80 hover:text-white transition-colors">نمونه‌کارها</a></li>
+              <li><a href="contact.html" class="text-fajr-sage/80 hover:text-white transition-colors">تماس</a></li>
+            </ul>
+          </div>
+          <div class="md:col-span-2">
+            <h4 class="text-fajr-red text-xs tracking-[4px] font-bold mb-5">خدمات</h4>
+            <ul class="space-y-3 text-sm font-light">
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">عکاسی</a></li>
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">آهنگسازی</a></li>
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">طراحی سایت</a></li>
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">مستند</a></li>
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">تلویزیون</a></li>
+            </ul>
+          </div>
+          <div class="md:col-span-3">
+            <h4 class="text-fajr-red text-xs tracking-[4px] font-bold mb-5">تماس</h4>
+            <ul class="space-y-3 text-sm font-light text-fajr-sage/80">
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 mt-1 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>تهران، خیابان ولیعصر، پلاک ۸۶</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                <span class="fa-num">۰۲۱ ۸۸ ۷۷ ۶۶ ۵۵</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+                <span>hello@fajrfilm.ir</span>
+              </li>
+            </ul>
+            <div class="flex gap-4 mt-6">
+              <a href="#" class="magnetic w-10 h-10 border border-fajr-sage/30 flex items-center justify-center hover:bg-fajr-red hover:border-fajr-red transition-colors" aria-label="اینستاگرام">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+              </a>
+              <a href="#" class="magnetic w-10 h-10 border border-fajr-sage/30 flex items-center justify-center hover:bg-fajr-red hover:border-fajr-red transition-colors" aria-label="تلگرام">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.6l-3.2 14.96c-.24 1.06-.88 1.32-1.78.82l-4.92-3.62-2.37 2.28c-.26.26-.48.48-.98.48l.35-4.96 9.04-8.16c.4-.35-.09-.55-.62-.2L6.43 13.06l-4.86-1.52c-1.06-.33-1.08-1.06.22-1.57l18.96-7.31c.88-.32 1.65.2 1.36 1.94z"/></svg>
+              </a>
+              <a href="#" class="magnetic w-10 h-10 border border-fajr-sage/30 flex items-center justify-center hover:bg-fajr-red hover:border-fajr-red transition-colors" aria-label="یوتیوب">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.46-5.18a3 3 0 00-2.12-2.12C18.74 4.24 12 4.24 12 4.24s-6.74 0-8.42.46a3 3 0 00-2.12 2.12C1 8.5 1 12 1 12s0 3.5.46 5.18a3 3 0 002.12 2.12c1.68.46 8.42.46 8.42.46s6.74 0 8.42-.46a3 3 0 002.12-2.12C23 15.5 23 12 23 12zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center my-12 overflow-hidden">
+          <div data-footer-wordmark class="text-[18vw] md:text-[14vw] leading-none font-extrabold text-fajr-sage/15 select-none">فجرفیلم</div>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-fajr-sage/15 text-fajr-sage/60 text-xs">
+          <div>© ۱۴۰۳ موسسه فرهنگی هنری فجرفیلم. تمام حقوق محفوظ است.</div>
+          <div class="flex items-center gap-6">
+            <a href="#" class="hover:text-white transition-colors">حریم خصوصی</a>
+            <a href="#" class="hover:text-white transition-colors">شرایط استفاده</a>
+          </div>
+        </div>
+      </div>
+      <button id="back-to-top" class="fixed bottom-6 left-6 z-50 w-12 h-12 bg-fajr-red text-white flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500" aria-label="بازگشت به بالا">
+        <svg class="w-5 h-5 spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" stroke-dasharray="2 3"/>
+          <path d="M12 7v10M8 11l4-4 4 4" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </footer>
+  </main>
+
+  <!-- Scripts -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/three-scenes.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <script>
+    window.FajrPageInit = function () {
+      if (window.FajrAnimations) FajrAnimations.initContact();
+    };
+  </script>
+</body>
+</html>

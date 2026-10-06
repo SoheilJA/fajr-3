@@ -1,0 +1,526 @@
+/* =========================================================
+   FAJR FILM — Custom CSS
+   Only what Tailwind can't do: film grain, custom cursor,
+   keyframes, scrollbar, RTL helpers, perforations, vignette.
+   Palette: #861A1A (red), #0D2819 (dark), #C5DCCC (sage), #FFFFFF
+   ========================================================= */
+
+:root {
+  --fajr-red: #861A1A;
+  --fajr-dark: #0D2819;
+  --fajr-sage: #C5DCCC;
+  --fajr-white: #FFFFFF;
+  --font-vazir: 'Vazirmatn', system-ui, sans-serif;
+}
+
+/* ----------------- Base ----------------- */
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+body {
+  font-family: var(--font-vazir);
+  background: var(--fajr-white);
+  color: var(--fajr-dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body.locked { overflow: hidden; }
+
+/* Persian digit helper */
+.fa-num { font-feature-settings: "ss01"; }
+
+/* ----------------- Custom Cursor ----------------- */
+body.cursor-ready,
+body.cursor-ready * { cursor: none !important; }
+
+.fajr-cursor-dot,
+.fajr-cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform, width, height;
+}
+.fajr-cursor-dot {
+  width: 7px; height: 7px;
+  background: var(--fajr-red);
+}
+.fajr-cursor-ring {
+  width: 38px; height: 38px;
+  border: 1.5px solid var(--fajr-sage);
+  mix-blend-mode: difference;
+  transition: width .35s cubic-bezier(.2,.8,.2,1),
+              height .35s cubic-bezier(.2,.8,.2,1),
+              background .35s ease,
+              border-color .35s ease;
+}
+.fajr-cursor-ring.hover-link {
+  width: 22px; height: 22px;
+  background: rgba(197,220,204,.15);
+  border-color: var(--fajr-red);
+}
+.fajr-cursor-ring.hover-view {
+  width: 76px; height: 76px;
+  background: var(--fajr-red);
+  border-color: transparent;
+  mix-blend-mode: normal;
+}
+.fajr-cursor-ring.hover-view::after {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-vazir);
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: .5px;
+}
+.fajr-cursor-ring.hover-drag {
+  width: 76px; height: 76px;
+  background: var(--fajr-dark);
+  border-color: transparent;
+  mix-blend-mode: normal;
+}
+.fajr-cursor-ring.hover-drag::after {
+  content: attr(data-label);
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-vazir);
+  font-size: 11px; font-weight: 700; color: var(--fajr-sage);
+}
+@media (hover: none), (pointer: coarse) {
+  body.cursor-ready, body.cursor-ready * { cursor: auto !important; }
+  .fajr-cursor-dot, .fajr-cursor-ring { display: none !important; }
+}
+
+/* ----------------- Preloader (film leader) ----------------- */
+#fajr-preloader {
+  position: fixed; inset: 0;
+  background: var(--fajr-dark);
+  z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+}
+.preloader-inner {
+  position: relative;
+  width: 220px; height: 220px;
+  display: flex; align-items: center; justify-content: center;
+}
+.preloader-ring {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(197,220,204,.18);
+  border-top-color: var(--fajr-red);
+  border-right-color: var(--fajr-red);
+  animation: preloader-spin 1.1s linear infinite;
+}
+@keyframes preloader-spin { to { transform: rotate(360deg); } }
+.preloader-count {
+  font-size: 64px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -2px;
+}
+.preloader-wordmark {
+  margin-top: 28px;
+  font-size: 22px;
+  letter-spacing: 8px;
+  color: var(--fajr-sage);
+  font-weight: 300;
+}
+.preloader-shutter {
+  position: fixed; inset: 0;
+  z-index: 10001;
+  pointer-events: none;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+.preloader-shutter .panel {
+  background: var(--fajr-dark);
+  transform-origin: top;
+}
+.preloader-shutter .panel.bottom { transform-origin: bottom; }
+
+/* ----------------- Page transition (film gate) ----------------- */
+#fajr-page-transition {
+  position: fixed; inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+#fajr-page-transition .gate {
+  background: var(--fajr-red);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+/* ----------------- Scroll progress (film strip) ----------------- */
+#fajr-scroll-progress {
+  position: fixed;
+  top: 0; right: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 9990;
+  background: rgba(13,40,25,.08);
+}
+#fajr-scroll-progress .bar {
+  height: 100%;
+  background: var(--fajr-red);
+  width: 0%;
+  position: relative;
+}
+#fajr-scroll-progress .bar::after {
+  content: "";
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 6px,
+    rgba(0,0,0,.35) 6px 10px
+  );
+}
+
+/* ----------------- Film grain ----------------- */
+#fajr-grain {
+  position: fixed; inset: -50%;
+  width: 200%; height: 200%;
+  pointer-events: none;
+  z-index: 9980;
+  opacity: .045;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain-shift .6s steps(2) infinite;
+  mix-blend-mode: overlay;
+}
+@keyframes grain-shift {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-2%, 1%); }
+  50% { transform: translate(1%, -2%); }
+  75% { transform: translate(-1%, -1%); }
+  100% { transform: translate(0,0); }
+}
+
+/* ----------------- Vignette ----------------- */
+.fajr-vignette {
+  position: relative;
+}
+.fajr-vignette::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.55) 100%);
+}
+
+/* ----------------- Letterbox bars ----------------- */
+.letterbox {
+  position: relative;
+}
+.letterbox::before,
+.letterbox::after {
+  content: "";
+  position: absolute; left: 0; right: 0;
+  height: 36px;
+  background: #000;
+  z-index: 5;
+}
+.letterbox::before { top: 0; }
+.letterbox::after  { bottom: 0; }
+
+/* ----------------- Film perforation strip ----------------- */
+.perf-strip {
+  position: relative;
+  height: 28px;
+  background: #000;
+}
+.perf-strip .perf {
+  position: absolute; top: 50%;
+  transform: translateY(-50%);
+  width: 14px; height: 10px;
+  background: var(--fajr-white);
+  border-radius: 2px;
+}
+.perf-strip.h .perf { animation: perf-slide 4s linear infinite; }
+.perf-strip.h.rtl .perf { animation: perf-slide-rtl 4s linear infinite; }
+@keyframes perf-slide {
+  from { background-position: 0 0; }
+  to   { background-position: -28px 0; }
+}
+@keyframes perf-slide-rtl {
+  from { transform: translateY(-50%) translateX(0); }
+  to   { transform: translateY(-50%) translateX(28px); }
+}
+
+/* Static perforation pattern via gradient */
+.perforations {
+  background-image:
+    repeating-linear-gradient(90deg,
+      transparent 0 18px,
+      rgba(255,255,255,.85) 18px 26px,
+      transparent 26px 40px);
+  height: 24px;
+}
+
+/* ----------------- Light leak gradient ----------------- */
+.light-leak {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(134,26,26,.20), transparent 35%),
+    radial-gradient(circle at 88% 82%, rgba(197,220,204,.16), transparent 40%);
+  mix-blend-mode: screen;
+}
+
+/* ----------------- Text reveal masks ----------------- */
+.reveal-line { overflow: hidden; display: block; }
+.reveal-line > .inner {
+  display: block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+.split-letter {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* ----------------- Magnetic button ----------------- */
+.magnetic { will-change: transform; }
+.magnetic-inner { will-change: transform; display: inline-block; }
+
+/* ----------------- Scrollbar ----------------- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--fajr-dark); }
+::-webkit-scrollbar-thumb {
+  background: var(--fajr-red);
+  border-radius: 0;
+  border: 2px solid var(--fajr-dark);
+}
+::-webkit-scrollbar-thumb:hover { background: #a02323; }
+
+/* ----------------- Service card tilt ----------------- */
+.service-card { transform-style: preserve-3d; will-change: transform; }
+.service-card .card-lift { transform: translateZ(40px); }
+
+/* ----------------- Marquee ----------------- */
+.marquee-track {
+  display: inline-flex;
+  will-change: transform;
+  white-space: nowrap;
+}
+
+/* ----------------- Custom underline on nav links ----------------- */
+.nav-link {
+  position: relative;
+  display: inline-block;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px; right: 0;
+  width: 0; height: 1.5px;
+  background: var(--fajr-red);
+  transition: width .4s cubic-bezier(.2,.8,.2,1);
+}
+.nav-link:hover::after,
+.nav-link.active::after { width: 100%; }
+
+/* ----------------- Form floating labels ----------------- */
+.floating-field { position: relative; }
+.floating-field input,
+.floating-field textarea,
+.floating-field select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid rgba(197,220,204,.35);
+  padding: 22px 4px 8px;
+  color: #fff;
+  font-family: var(--font-vazir);
+  font-size: 16px;
+  outline: none;
+  transition: border-color .3s ease;
+}
+.floating-field input:focus,
+.floating-field textarea:focus,
+.floating-field select:focus {
+  border-bottom-color: var(--fajr-red);
+}
+.floating-field label {
+  position: absolute;
+  right: 4px; top: 16px;
+  color: rgba(197,220,204,.6);
+  pointer-events: none;
+  transition: all .3s cubic-bezier(.2,.8,.2,1);
+  font-size: 15px;
+}
+.floating-field input:focus + label,
+.floating-field input:not(:placeholder-shown) + label,
+.floating-field textarea:focus + label,
+.floating-field textarea:not(:placeholder-shown) + label,
+.floating-field select:focus + label,
+.floating-field select.has-value + label {
+  top: 4px;
+  font-size: 11px;
+  color: var(--fajr-red);
+  letter-spacing: 1px;
+}
+.floating-field .focus-underline {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 0; height: 2px;
+  background: var(--fajr-red);
+  transition: width .4s cubic-bezier(.2,.8,.2,1);
+}
+.floating-field input:focus ~ .focus-underline,
+.floating-field textarea:focus ~ .focus-underline,
+.floating-field select:focus ~ .focus-underline { width: 100%; }
+
+.floating-field.error input,
+.floating-field.error textarea,
+.floating-field.error select {
+  border-bottom-color: var(--fajr-red);
+  animation: shake .4s;
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+.field-success-tick {
+  position: absolute;
+  left: 4px; top: 50%;
+  transform: translateY(-50%) scale(0);
+  color: var(--fajr-sage);
+  font-size: 18px;
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.floating-field.success .field-success-tick {
+  transform: translateY(-50%) scale(1);
+}
+
+/* ----------------- Film reel icon spin ----------------- */
+.spin-slow { animation: spin-slow 8s linear infinite; }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+
+/* ----------------- Hover image zoom ----------------- */
+.zoom-wrap { overflow: hidden; }
+.zoom-wrap img { transition: transform 1.2s cubic-bezier(.2,.8,.2,1); will-change: transform; }
+.zoom-wrap:hover img { transform: scale(1.08); }
+
+/* ----------------- Pulsing pin (map) ----------------- */
+.map-pin {
+  position: relative;
+  width: 18px; height: 18px;
+  background: var(--fajr-red);
+  border-radius: 50%;
+}
+.map-pin::before,
+.map-pin::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: var(--fajr-red);
+  animation: pulse 2.2s ease-out infinite;
+}
+.map-pin::after { animation-delay: 1.1s; }
+@keyframes pulse {
+  0% { transform: scale(1); opacity: .8; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+
+/* ----------------- Reduced motion ----------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .reveal-line > .inner,
+  .split-letter { transform: none !important; }
+  #fajr-grain { display: none !important; }
+}
+
+/* ----------------- Selection ----------------- */
+::selection { background: var(--fajr-red); color: #fff; }
+
+/* ----------------- Three canvas defaults ----------------- */
+.three-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.three-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ----------------- Utility helpers ----------------- */
+.text-balance { text-wrap: balance; }
+.no-scroll { overflow: hidden; }
+.gpu { transform: translateZ(0); will-change: transform, opacity; }
+
+/* ----------------- Navbar states ----------------- */
+#fajr-navbar {
+  transition: transform .5s cubic-bezier(.2,.8,.2,1),
+              background-color .4s ease,
+              backdrop-filter .4s ease,
+              border-color .4s ease;
+  border-bottom: 1px solid transparent;
+}
+#fajr-navbar.navbar-glass {
+  background: rgba(13, 40, 25, .85);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-bottom-color: rgba(197, 220, 204, .12);
+}
+#fajr-navbar.navbar-hidden {
+  transform: translateY(-100%);
+}
+
+/* Active nav link color */
+.nav-link.active { color: var(--fajr-red) !important; }
+.nav-link.active::after { width: 100%; }
+
+/* Burger animation */
+#fajr-burger span:nth-child(1) { transform-origin: center; }
+#fajr-burger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+#fajr-burger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+#fajr-burger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Accordion icon rotation when open */
+[data-accordion-item] .accordion-icon {
+  transition: transform .4s cubic-bezier(.2,.8,.2,1);
+}
+[data-accordion-item].open .accordion-icon {
+  transform: rotate(135deg);
+}
+
+/* Stage card active state in process */
+.stage-card .process-line { opacity: .4; transition: opacity .4s; }
+.stage-card.active .process-line { opacity: 1; }
+.stage-card.active h3 { color: var(--fajr-sage); }
+
+/* ----------------- Service card expanded ----------------- */
+.service-card.expanded { background: var(--fajr-dark) !important; color: #fff; }
+.service-card.expanded h3 { color: #fff !important; }
+.service-card.expanded p { color: rgba(197,220,204,.85) !important; }
+
+/* RTL arrow flip helper (already RTL but keep explicit) */
+.arrow-rtl { transform: scaleX(-1); }

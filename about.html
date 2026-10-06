@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>درباره فجرفیلم | موسسه فرهنگی هنری فجرفیلم</title>
+  <meta name="description" content="داستان موسسه فرهنگی هنری فجرفیلم؛ از سال ۱۳۸۸ تا امروز، روایتگر برندها و قصه‌های سینمایی. نگاهی به ماموریت، چشم‌انداز، تاریخچه و تیم ما." />
+  <meta name="theme-color" content="#0D2819" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="درباره فجرفیلم" />
+  <meta property="og:description" content="داستان موسسه فرهنگی هنری فجرفیلم." />
+  <meta property="og:image" content="https://placehold.co/1200x630/0D2819/C5DCCC?text=About+Fajr+Film" />
+  <meta property="og:locale" content="fa_IR" />
+  <meta property="og:site_name" content="فجرفیلم" />
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230D2819'/><circle cx='50' cy='50' r='28' fill='none' stroke='%23861A1A' stroke-width='6'/><circle cx='50' cy='50' r='6' fill='%23C5DCCC'/></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'fajr-red': '#861A1A',
+            'fajr-dark': '#0D2819',
+            'fajr-sage': '#C5DCCC',
+            'fajr-white': '#FFFFFF'
+          },
+          fontFamily: { sans: ['Vazirmatn', 'system-ui', 'sans-serif'] }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="assets/css/custom.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body class="bg-white text-fajr-dark font-sans antialiased overflow-x-hidden">
+
+  <!-- Preloader -->
+  <div id="fajr-preloader">
+    <div class="preloader-inner">
+      <div class="preloader-ring"></div>
+      <div class="preloader-count fa-num">۳</div>
+    </div>
+    <div class="preloader-wordmark">FAJR&nbsp;FILM</div>
+  </div>
+
+  <!-- Cursor -->
+  <div class="fajr-cursor-dot"></div>
+  <div class="fajr-cursor-ring"></div>
+
+  <!-- Page transition -->
+  <div id="fajr-page-transition"></div>
+
+  <!-- Scroll progress -->
+  <div id="fajr-scroll-progress"><div class="bar"></div></div>
+
+  <!-- Grain -->
+  <div id="fajr-grain"></div>
+
+  <!-- Global dust -->
+  <canvas id="three-global-dust" class="three-bg fixed inset-0 z-0 pointer-events-none"></canvas>
+
+  <!-- ============ Navbar ============ -->
+  <header id="fajr-navbar" class="fixed top-0 inset-x-0 z-[9970] transition-all duration-500">
+    <nav class="max-w-[1400px] mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group" aria-label="فجرفیلم — خانه">
+        <svg class="w-10 h-10 spin-slow" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="#C5DCCC" stroke-width="2" opacity="0.3"/>
+          <circle cx="50" cy="50" r="30" fill="none" stroke="#861A1A" stroke-width="3"/>
+          <circle cx="50" cy="50" r="14" fill="none" stroke="#C5DCCC" stroke-width="2"/>
+          <circle cx="50" cy="50" r="5" fill="#C5DCCC"/>
+          <g stroke="#C5DCCC" stroke-width="2" stroke-linecap="round">
+            <line x1="50" y1="8" x2="50" y2="18"/>
+            <line x1="50" y1="82" x2="50" y2="92"/>
+            <line x1="8" y1="50" x2="18" y2="50"/>
+            <line x1="82" y1="50" x2="92" y2="50"/>
+          </g>
+        </svg>
+        <div class="leading-tight">
+          <div class="text-fajr-sage font-light tracking-[6px] text-xs">FAJR FILM</div>
+          <div class="text-white font-extrabold text-lg">فجرفیلم</div>
+        </div>
+      </a>
+      <ul class="hidden lg:flex items-center gap-10 text-white/90 text-sm">
+        <li><a href="index.html" class="nav-link">خانه</a></li>
+        <li><a href="about.html" class="nav-link active">درباره ما</a></li>
+        <li><a href="index.html#services" class="nav-link">خدمات</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">نمونه‌کارها</a></li>
+        <li><a href="index.html#blog" class="nav-link">وبلاگ</a></li>
+        <li><a href="contact.html" class="nav-link">تماس</a></li>
+      </ul>
+      <a href="contact.html" class="hidden lg:inline-flex magnetic items-center gap-2 bg-fajr-red text-white px-6 py-2.5 text-sm font-bold tracking-wide hover:bg-[#a02323] transition-colors">
+        <span class="magnetic-inner">شروع پروژه</span>
+        <svg class="w-4 h-4 arrow-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <button id="fajr-burger" class="lg:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-1.5" aria-label="منو">
+        <span class="block w-6 h-0.5 bg-white transition-all duration-300"></span>
+        <span class="block w-6 h-0.5 bg-white transition-all duration-300"></span>
+        <span class="block w-6 h-0.5 bg-white transition-all duration-300"></span>
+      </button>
+    </nav>
+  </header>
+
+  <div id="fajr-mobile-menu" class="hidden fixed inset-0 z-[9965] bg-fajr-dark/98 backdrop-blur-xl flex-col items-center justify-center gap-8 text-white text-2xl">
+    <a href="index.html" data-stagger class="nav-link">خانه</a>
+    <a href="about.html" data-stagger class="nav-link active">درباره ما</a>
+    <a href="index.html#services" data-stagger class="nav-link">خدمات</a>
+    <a href="index.html#portfolio" data-stagger class="nav-link">نمونه‌کارها</a>
+    <a href="index.html#blog" data-stagger class="nav-link">وبلاگ</a>
+    <a href="contact.html" data-stagger class="nav-link">تماس</a>
+    <a href="contact.html" data-stagger class="mt-6 bg-fajr-red px-8 py-3 text-base font-bold">شروع پروژه</a>
+  </div>
+
+  <main class="relative z-10">
+
+    <!-- ====================================================
+         HERO — About
+         ==================================================== -->
+    <section class="relative min-h-[80vh] flex items-center justify-center bg-fajr-dark text-white fajr-vignette overflow-hidden">
+      <div id="three-about-wrap" class="absolute inset-0">
+        <canvas id="three-about-reel" class="three-canvas opacity-30"></canvas>
+      </div>
+      <div class="relative z-10 max-w-[1400px] mx-auto px-5 md:px-8 pt-32 pb-16 text-center">
+        <!-- Breadcrumbs -->
+        <div class="flex items-center justify-center gap-2 text-fajr-sage/60 text-xs mb-8">
+          <a href="index.html" class="hover:text-fajr-sage transition-colors">خانه</a>
+          <span>/</span>
+          <span class="text-fajr-sage">درباره ما</span>
+        </div>
+        <div class="text-fajr-red text-xs tracking-[6px] mb-4 font-bold">SCENE 01 — ABOUT US</div>
+        <h1 class="text-5xl md:text-8xl font-extrabold leading-[1.05] mb-8 text-balance" data-reveal="lines" data-lines="درباره|فجرفیلم.">
+          درباره فجرفیلم.
+        </h1>
+        <p class="text-fajr-sage/85 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed" data-reveal="lines" data-lines="موسسه‌ای که قصه‌ها را|سینمایی می‌سازد.">
+          از نگاهی سینمایی تا اجرای حرفه‌ای.
+        </p>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         STORY & MISSION
+         Light section
+         ==================================================== -->
+    <section class="relative bg-white py-24 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12 items-start">
+        <!-- Pinned image -->
+        <div class="lg:col-span-5 lg:sticky lg:top-32">
+          <div class="relative aspect-[4/5] overflow-hidden">
+            <img src="https://placehold.co/800x1000/0D2819/C5DCCC?text=Fajr+Film+Story" alt="داستان فجرفیلم" class="w-full h-full object-cover" />
+            <div class="absolute top-4 right-4 bg-fajr-dark text-fajr-sage text-xs px-3 py-1 tracking-wide">EST. ۱۳۸۸</div>
+          </div>
+        </div>
+        <!-- Narrative -->
+        <div class="lg:col-span-7 space-y-8">
+          <div>
+            <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 02 — STORY</div>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-fajr-dark leading-tight mb-6 text-balance">
+              داستان ما، از یک ایدهٔ کوچک آغاز شد.
+            </h2>
+            <div class="space-y-5 text-fajr-dark/80 font-light leading-relaxed text-lg">
+              <p>
+                موسسهٔ فرهنگی هنری فجرفیلم در سال ۱۳۸۸ با باوری ساده آغاز به کار کرد: هر ایده‌ای، شایستهٔ روایت است، اگر دستی هنرمند آن را بپروراند. در آن روزها، تیمی کوچک از دوستان سینماگر، در یک اتاق متروک در تهران، نخستین فیلم کوتاه خود را ساختند؛ فیلمی که بعدها در جشنوارهٔ دانشجویی برنده شد و نشان داد که راه درست را یافته‌ایم.
+              </p>
+              <p>
+                امروز، پانزده سال بعد، فجرفیلم خانه‌ای کامل برای تولید فیلم، صدا، موسیقی، عکاسی، طراحی وب، سوشال مدیا، تلویزیون، مستند و طراحی صحنه و لباس است. هر واحد، با تیمی مستقل و تجهیزات روز، در کنار دیگری قرار گرفته تا از لحظهٔ ایده تا روز انتشار، همراه مشتری باشد. ما یک سرویس نیستیم؛ شریک خلاق برند شما هستیم.
+              </p>
+              <p>
+                در این سال‌ها، بیش از ۳۲۰ پروژه ساخته‌ایم؛ از فیلم کوتاه جشنواره‌ای تا کمپین بزرگ رسانه‌ای، از مستند تاریخی تا موسیقی فیلم بلند، از طراحی سایت برندهای نوپا تا مدیریت کامل سوشال مدیا شرکت‌های بزرگ. هر پروژه، نگاهی سینمایی و نگاهی به جزئیات داشته است.
+              </p>
+              <p>
+                اما آنچه تغییر نکرده، باور اولیهٔ ماست: قصه‌های خوب، دست‌ساز هستند. ما با تعهد به این باور، هر روز به دنبال این می‌گردیم که چگونه می‌توانیم قصهٔ برند شما را، با زبانی سینمایی و در قالبی تازه، به گوش مخاطب برسانیم.
+              </p>
+            </div>
+          </div>
+          <!-- Mission card -->
+          <div class="border border-fajr-sage/40 p-8 bg-fajr-dark/5">
+            <div class="text-fajr-red text-xs tracking-[4px] mb-3 font-bold">MISSION — ماموریت</div>
+            <p class="text-fajr-dark font-light leading-relaxed text-lg">
+              ماموریت ما، ساختن آثاری است که ماندگار شوند؛ آثاری که نه تنها مخاطب را جذب کنند، بلکه او را تکان دهند. ما باور داریم سینما تنها یک رسانه نیست؛ یک زبان است. و هر برند، یک قصه دارد که شایستهٔ روایت با این زبان است.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         VISION, MISSION, VALUES
+         Dark section with particle reel behind
+         ==================================================== -->
+    <section id="about-vision" class="relative bg-fajr-dark text-white py-24 md:py-32 overflow-hidden">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8 relative z-10">
+        <div class="text-center mb-16">
+          <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 03 — VALUES</div>
+          <h2 class="text-4xl md:text-6xl font-extrabold leading-tight" data-reveal="lines" data-lines="آنچه|ما را تعریف می‌کند.">
+            ارزش‌های ما.
+          </h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-stagger-group data-stagger-delay="0.1">
+          <!-- Creativity -->
+          <div data-stagger-item class="group relative p-8 border border-fajr-sage/20 hover:border-fajr-red transition-colors">
+            <div class="text-fajr-red fa-num text-5xl font-extrabold mb-6 opacity-30">۰۱</div>
+            <h3 class="text-2xl font-extrabold mb-3">خلاقیت</h3>
+            <p class="text-fajr-sage/70 text-sm font-light leading-relaxed">
+              هر پروژه، یک نگاه تازه می‌طلبد. ما قالب‌های آماده تکرار نمی‌کنیم؛ برای هر قصه، زبانی جدید می‌سازیم.
+            </p>
+          </div>
+          <!-- Craft -->
+          <div data-stagger-item class="group relative p-8 border border-fajr-sage/20 hover:border-fajr-red transition-colors">
+            <div class="text-fajr-red fa-num text-5xl font-extrabold mb-6 opacity-30">۰۲</div>
+            <h3 class="text-2xl font-extrabold mb-3">صنعت</h3>
+            <p class="text-fajr-sage/70 text-sm font-light leading-relaxed">
+              هنر بدون صنعت، ناقص است. ما به جزئیات فنی، تجهیزات روز و کیفیت اجرا، با دقت حرفه‌ای می‌رسیم.
+            </p>
+          </div>
+          <!-- Culture -->
+          <div data-stagger-item class="group relative p-8 border border-fajr-sage/20 hover:border-fajr-red transition-colors">
+            <div class="text-fajr-red fa-num text-5xl font-extrabold mb-6 opacity-30">۰۳</div>
+            <h3 class="text-2xl font-extrabold mb-3">فرهنگ</h3>
+            <p class="text-fajr-sage/70 text-sm font-light leading-relaxed">
+              ما ریشه در فرهنگ ایرانی داریم. هر پروژه، با هویتی اصیل و در عین حال مدرن، روایت می‌شود.
+            </p>
+          </div>
+          <!-- Collaboration -->
+          <div data-stagger-item class="group relative p-8 border border-fajr-sage/20 hover:border-fajr-red transition-colors">
+            <div class="text-fajr-red fa-num text-5xl font-extrabold mb-6 opacity-30">۰۴</div>
+            <h3 class="text-2xl font-extrabold mb-3">همکاری</h3>
+            <p class="text-fajr-sage/70 text-sm font-light leading-relaxed">
+              ما خود را مجری نمی‌دانیم؛ شریک خلاق برند شما هستیم. هر پروژه، گفتگوی دو ذهن خلاق است.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         TIMELINE (with film reel)
+         Light section
+         ==================================================== -->
+    <section id="about-timeline" class="relative bg-white py-24 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8">
+        <div class="text-center mb-16">
+          <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 04 — TIMELINE</div>
+          <h2 class="text-4xl md:text-6xl font-extrabold text-fajr-dark leading-tight">مسیر فجرفیلم</h2>
+          <p class="mt-4 text-fajr-dark/60 max-w-2xl mx-auto font-light">
+            از یک اتاق کوچک در تهران، تا یک استودیوی کامل تولید سینمایی. نگاهی به مهم‌ترین لحظه‌های این مسیر.
+          </p>
+        </div>
+
+        <div class="relative max-w-4xl mx-auto">
+          <!-- vertical line -->
+          <svg class="absolute top-0 right-4 md:right-1/2 md:translate-x-1/2 h-full w-1" viewBox="0 0 4 1000" preserveAspectRatio="none" data-draw-line>
+            <line x1="2" y1="0" x2="2" y2="1000" stroke="#C5DCCC" stroke-width="2"/>
+          </svg>
+
+          <!-- milestones -->
+          <div class="space-y-12">
+            <article class="relative md:grid md:grid-cols-2 md:gap-8">
+              <div class="md:text-left md:pl-8 pr-12 md:pr-0">
+                <div class="text-fajr-red fa-num text-2xl font-extrabold mb-2">۱۳۸۸</div>
+                <h3 class="text-xl font-extrabold text-fajr-dark mb-2">آغاز کار</h3>
+                <p class="text-fajr-dark/70 text-sm font-light leading-relaxed">
+                  فجرفیلم با یک تیم سه نفره و یک فیلم کوتاه دانشجویی، در یک اتاق متروک در تهران متولد شد.
+                </p>
+              </div>
+              <div class="absolute top-1 right-2 md:right-1/2 md:translate-x-1/2 w-4 h-4 bg-fajr-red rounded-full ring-4 ring-white"></div>
+            </article>
+
+            <article class="relative md:grid md:grid-cols-2 md:gap-8">
+              <div class="md:col-start-2 md:pl-0 pr-12">
+                <div class="text-fajr-red fa-num text-2xl font-extrabold mb-2">۱۳۹۱</div>
+                <h3 class="text-xl font-extrabold text-fajr-dark mb-2">استودیوی صدا</h3>
+                <p class="text-fajr-dark/70 text-sm font-light leading-relaxed">
+                  نخستین اتاق صداگذاری حرفه‌ای راه‌اندازی شد و واحد گویندگی و آهنگسازی به فجرفیلم اضافه گردید.
+                </p>
+              </div>
+              <div class="absolute top-1 right-2 md:right-1/2 md:translate-x-1/2 w-4 h-4 bg-fajr-red rounded-full ring-4 ring-white"></div>
+            </article>
+
+            <article class="relative md:grid md:grid-cols-2 md:gap-8">
+              <div class="md:text-left md:pl-8 pr-12 md:pr-0">
+                <div class="text-fajr-red fa-num text-2xl font-extrabold mb-2">۱۳۹۴</div>
+                <h3 class="text-xl font-extrabold text-fajr-dark mb-2">واحد طراحی و سوشال</h3>
+                <p class="text-fajr-dark/70 text-sm font-light leading-relaxed">
+                  واحد طراحی سایت و سوشال مدیا تشکیل شد تا فجرفیلم خانه‌ای کامل برای رسانهٔ برندها باشد.
+                </p>
+              </div>
+              <div class="absolute top-1 right-2 md:right-1/2 md:translate-x-1/2 w-4 h-4 bg-fajr-red rounded-full ring-4 ring-white"></div>
+            </article>
+
+            <article class="relative md:grid md:grid-cols-2 md:gap-8">
+              <div class="md:col-start-2 md:pl-0 pr-12">
+                <div class="text-fajr-red fa-num text-2xl font-extrabold mb-2">۱۳۹۷</div>
+                <h3 class="text-xl font-extrabold text-fajr-dark mb-2">نخستین جایزهٔ ملی</h3>
+                <p class="text-fajr-dark/70 text-sm font-light leading-relaxed">
+                  مستند بلند «روایت‌های شهر» در جشنوارهٔ سینمای مستند ملی، جایزهٔ بهترین کارگردانی را دریافت کرد.
+                </p>
+              </div>
+              <div class="absolute top-1 right-2 md:right-1/2 md:translate-x-1/2 w-4 h-4 bg-fajr-red rounded-full ring-4 ring-white"></div>
+            </article>
+
+            <article class="relative md:grid md:grid-cols-2 md:gap-8">
+              <div class="md:text-left md:pl-8 pr-12 md:pr-0">
+                <div class="text-fajr-red fa-num text-2xl font-extrabold mb-2">۱۴۰۰</div>
+                <h3 class="text-xl font-extrabold text-fajr-dark mb-2">واحد طراحی صحنه و لباس</h3>
+                <p class="text-fajr-dark/70 text-sm font-light leading-relaxed">
+                  با اضافه شدن واحد طراحی صحنه و لباس، فجرفیلم به نه خدمت تخصصی رسید و یک خانهٔ کامل شد.
+                </p>
+              </div>
+              <div class="absolute top-1 right-2 md:right-1/2 md:translate-x-1/2 w-4 h-4 bg-fajr-red rounded-full ring-4 ring-white"></div>
+            </article>
+
+            <article class="relative md:grid md:grid-cols-2 md:gap-8">
+              <div class="md:col-start-2 md:pl-0 pr-12">
+                <div class="text-fajr-red fa-num text-2xl font-extrabold mb-2">۱۴۰۳</div>
+                <h3 class="text-xl font-extrabold text-fajr-dark mb-2">امروز</h3>
+                <p class="text-fajr-dark/70 text-sm font-light leading-relaxed">
+                  فجرفیلم امروز، با بیش از ۴۰ نفر تیم تخصصی و بیش از ۳۲۰ پروژهٔ موفق، یکی از خانه‌های خلاق پیشروی کشور است.
+                </p>
+              </div>
+              <div class="absolute top-1 right-2 md:right-1/2 md:translate-x-1/2 w-4 h-4 bg-fajr-red rounded-full ring-4 ring-white"></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         STATS STRIP
+         Red section
+         ==================================================== -->
+    <section class="relative bg-fajr-red text-white py-20" data-stats-strip>
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div data-stat-item>
+          <div class="text-5xl md:text-7xl font-extrabold fa-num" data-counter="15" data-suffix="+">۰</div>
+          <div class="text-white/80 text-sm mt-2 tracking-wide">سال تجربه</div>
+        </div>
+        <div data-stat-item>
+          <div class="text-5xl md:text-7xl font-extrabold fa-num" data-counter="320" data-suffix="+">۰</div>
+          <div class="text-white/80 text-sm mt-2 tracking-wide">پروژه موفق</div>
+        </div>
+        <div data-stat-item>
+          <div class="text-5xl md:text-7xl font-extrabold fa-num" data-counter="280" data-suffix="+">۰</div>
+          <div class="text-white/80 text-sm mt-2 tracking-wide">مشتری راضی</div>
+        </div>
+        <div data-stat-item>
+          <div class="text-5xl md:text-7xl font-extrabold fa-num" data-counter="12" data-suffix="">۰</div>
+          <div class="text-white/80 text-sm mt-2 tracking-wide">جایزه و افتخار</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         SERVICES OVERVIEW — compact list with hover preview
+         Dark section
+         ==================================================== -->
+    <section class="relative bg-fajr-dark text-white py-24 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 items-start">
+          <div class="lg:col-span-4 lg:sticky lg:top-32">
+            <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 05 — SERVICES</div>
+            <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">نه خدمت، یک خانه</h2>
+            <p class="text-fajr-sage/70 font-light leading-relaxed mb-6">
+              فجرفیلم نه مجری یکی از خدمات، بلکه خانه‌ای کامل برای تمام نیازهای تولید سینمایی و رسانه‌ای برند شماست. هر خدمت با تیمی مستقل و در تعامل با دیگر واحدها.
+            </p>
+            <a href="index.html#services" class="inline-flex items-center gap-3 text-fajr-red text-sm font-bold border-b border-fajr-red/40 hover:border-fajr-red pb-1 transition-colors">
+              مشاهدهٔ کامل خدمات
+              <svg class="w-4 h-4 arrow-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+          <div class="lg:col-span-8 space-y-px bg-fajr-sage/15">
+            <!-- service row -->
+            <a href="index.html#services" class="group flex items-center justify-between p-5 bg-fajr-dark hover:bg-fajr-red transition-colors">
+              <div class="flex items-center gap-5">
+                <span class="text-fajr-sage/40 fa-num text-sm group-hover:text-white">۰۱</span>
+                <span class="text-xl font-extrabold">عکاسی</span>
+              </div>
+              <svg class="w-5 h-5 arrow-rtl text-fajr-sage/60 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="index.html#services" class="group flex items-center justify-between p-5 bg-fajr-dark hover:bg-fajr-red transition-colors">
+              <div class="flex items-center gap-5">
+                <span class="text-fajr-sage/40 fa-num text-sm group-hover:text-white">۰۲</span>
+                <span class="text-xl font-extrabold">گویندگی و صداگذاری</span>
+              </div>
+              <svg class="w-5 h-5 arrow-rtl text-fajr-sage/60 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="index.html#services" class="group flex items-center justify-between p-5 bg-fajr-dark hover:bg-fajr-red transition-colors">
+              <div class="flex items-center gap-5">
+                <span class="text-fajr-sage/40 fa-num text-sm group-hover:text-white">۰۳</span>
+                <span class="text-xl font-extrabold">آهنگسازی</span>
+              </div>
+              <svg class="w-5 h-5 arrow-rtl text-fajr-sage/60 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="index.html#services" class="group flex items-center justify-between p-5 bg-fajr-dark hover:bg-fajr-red transition-colors">
+              <div class="flex items-center gap-5">
+                <span class="text-fajr-sage/40 fa-num text-sm group-hover:text-white">۰۴</span>
+                <span class="text-xl font-extrabold">طراحی سایت</span>
+              </div>
+              <svg class="w-5 h-5 arrow-rtl text-fajr-sage/60 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="index.html#services" class="group flex items-center justify-between p-5 bg-fajr-dark hover:bg-fajr-red transition-colors">
+              <div class="flex items-center gap-5">
+                <span class="text-fajr-sage/40 fa-num text-sm group-hover:text-white">۰۵</span>
+                <span class="text-xl font-extrabold">سوشال مدیا</span>
+              </div>
+              <svg class="w-5 h-5 arrow-rtl text-fajr-sage/60 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="index.html#services" class="group flex items-center justify-between p-5 bg-fajr-dark hover:bg-fajr-red transition-colors">
+              <div class="flex items-center gap-5">
+                <span class="text-fajr-sage/40 fa-num text-sm group-hover:text-white">۰۶</span>
+                <span class="text-xl font-extrabold">فیلم کوتاه</span>
+              </div>
+              <svg class="w-5 h-5 arrow-rtl text-fajr-sage/60 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="index.html#services" class="group flex items-center justify-between p-5 bg-fajr-dark hover:bg-fajr-red transition-colors">
+              <div class="flex items-center gap-5">
+                <span class="text-fajr-sage/40 fa-num text-sm group-hover:text-white">۰۷</span>
+                <span class="text-xl font-extrabold">تلویزیون</span>
+              </div>
+              <svg class="w-5 h-5 arrow-rtl text-fajr-sage/60 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="index.html#services" class="group flex items-center justify-between p-5 bg-fajr-dark hover:bg-fajr-red transition-colors">
+              <div class="flex items-center gap-5">
+                <span class="text-fajr-sage/40 fa-num text-sm group-hover:text-white">۰۸</span>
+                <span class="text-xl font-extrabold">مستند</span>
+              </div>
+              <svg class="w-5 h-5 arrow-rtl text-fajr-sage/60 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="index.html#services" class="group flex items-center justify-between p-5 bg-fajr-dark hover:bg-fajr-red transition-colors">
+              <div class="flex items-center gap-5">
+                <span class="text-fajr-sage/40 fa-num text-sm group-hover:text-white">۰۹</span>
+                <span class="text-xl font-extrabold">طراحی لباس و صحنه</span>
+              </div>
+              <svg class="w-5 h-5 arrow-rtl text-fajr-sage/60 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         TEAM GRID
+         Light section
+         ==================================================== -->
+    <section class="relative bg-white py-24 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8">
+        <div class="text-center mb-16">
+          <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 06 — TEAM</div>
+          <h2 class="text-4xl md:text-6xl font-extrabold text-fajr-dark leading-tight">تیمی که می‌سازد</h2>
+          <p class="mt-4 text-fajr-dark/60 max-w-2xl mx-auto font-light">
+            جادو در پشت دوربین اتفاق می‌افتد. اینها دستانی هستند که فجرفیلم را می‌سازند.
+          </p>
+        </div>
+        <div data-team-grid class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <article data-team-card class="group relative overflow-hidden aspect-[4/5] cursor-pointer">
+            <img src="https://placehold.co/600x750/0D2819/C5DCCC?text=Founder" alt="بنیان‌گذار" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-fajr-dark/95 via-transparent to-transparent"></div>
+            <div class="absolute bottom-0 inset-x-0 p-6 text-white">
+              <div class="role text-fajr-red text-xs tracking-[4px] mb-1 font-bold">بنیان‌گذار و کارگردان</div>
+              <h3 class="text-xl font-extrabold">سعید رحیمی</h3>
+            </div>
+          </article>
+          <article data-team-card class="group relative overflow-hidden aspect-[4/5] cursor-pointer">
+            <img src="https://placehold.co/600x750/861A1A/C5DCCC?text=Producer" alt="تهیه‌کننده" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-fajr-dark/95 via-transparent to-transparent"></div>
+            <div class="absolute bottom-0 inset-x-0 p-6 text-white">
+              <div class="role text-fajr-red text-xs tracking-[4px] mb-1 font-bold">تهیه‌کننده</div>
+              <h3 class="text-xl font-extrabold">نازنین رستمی</h3>
+            </div>
+          </article>
+          <article data-team-card class="group relative overflow-hidden aspect-[4/5] cursor-pointer">
+            <img src="https://placehold.co/600x750/0D2819/FFFFFF?text=DP" alt="مدیر تصویر" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-fajr-dark/95 via-transparent to-transparent"></div>
+            <div class="absolute bottom-0 inset-x-0 p-6 text-white">
+              <div class="role text-fajr-red text-xs tracking-[4px] mb-1 font-bold">مدیر تصویر</div>
+              <h3 class="text-xl font-extrabold">آرش موسوی</h3>
+            </div>
+          </article>
+          <article data-team-card class="group relative overflow-hidden aspect-[4/5] cursor-pointer">
+            <img src="https://placehold.co/600x750/C5DCCC/861A1A?text=Sound" alt="مدیر صدا" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-fajr-dark/95 via-transparent to-transparent"></div>
+            <div class="absolute bottom-0 inset-x-0 p-6 text-white">
+              <div class="role text-fajr-red text-xs tracking-[4px] mb-1 font-bold">مدیر صدا</div>
+              <h3 class="text-xl font-extrabold">کاوه نوری</h3>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         BEHIND THE SCENES GALLERY — masonry with parallax
+         Dark section
+         ==================================================== -->
+    <section class="relative bg-fajr-dark py-24 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8">
+        <div class="text-center mb-16">
+          <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 07 — BEHIND THE SCENES</div>
+          <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">پشت صحنه</h2>
+          <p class="mt-4 text-fajr-sage/70 max-w-2xl mx-auto font-light">
+            لحظه‌هایی که در پشت دوربین می‌گذرند؛ جایی که واقعیتِ ساخت یک اثر، روایت می‌شود.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3" data-stagger-group data-stagger-delay="0.06">
+          <div data-stagger-item class="zoom-wrap aspect-[4/5] overflow-hidden" data-speed="0.3">
+            <img src="https://placehold.co/600x750/0D2819/C5DCCC?text=BTS+01" alt="پشت صحنه یک" class="w-full h-full object-cover" />
+          </div>
+          <div data-stagger-item class="zoom-wrap aspect-[4/5] overflow-hidden mt-8" data-speed="0.5">
+            <img src="https://placehold.co/600x750/861A1A/C5DCCC?text=BTS+02" alt="پشت صحنه دو" class="w-full h-full object-cover" />
+          </div>
+          <div data-stagger-item class="zoom-wrap aspect-[4/5] overflow-hidden" data-speed="0.2">
+            <img src="https://placehold.co/600x750/C5DCCC/861A1A?text=BTS+03" alt="پشت صحنه سه" class="w-full h-full object-cover" />
+          </div>
+          <div data-stagger-item class="zoom-wrap aspect-[4/5] overflow-hidden mt-12" data-speed="0.6">
+            <img src="https://placehold.co/600x750/0D2819/FFFFFF?text=BTS+04" alt="پشت صحنه چهار" class="w-full h-full object-cover" />
+          </div>
+          <div data-stagger-item class="zoom-wrap aspect-[4/5] overflow-hidden mt-6" data-speed="0.4">
+            <img src="https://placehold.co/600x750/861A1A/FFFFFF?text=BTS+05" alt="پشت صحنه پنج" class="w-full h-full object-cover" />
+          </div>
+          <div data-stagger-item class="zoom-wrap aspect-[4/5] overflow-hidden" data-speed="0.3">
+            <img src="https://placehold.co/600x750/0D2819/C5DCCC?text=BTS+06" alt="پشت صحنه شش" class="w-full h-full object-cover" />
+          </div>
+          <div data-stagger-item class="zoom-wrap aspect-[4/5] overflow-hidden mt-8" data-speed="0.5">
+            <img src="https://placehold.co/600x750/C5DCCC/861A1A?text=BTS+07" alt="پشت صحنه هفت" class="w-full h-full object-cover" />
+          </div>
+          <div data-stagger-item class="zoom-wrap aspect-[4/5] overflow-hidden" data-speed="0.2">
+            <img src="https://placehold.co/600x750/0D2819/FFFFFF?text=BTS+08" alt="پشت صحنه هشت" class="w-full h-full object-cover" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         AWARDS / FESTIVALS
+         Light section
+         ==================================================== -->
+    <section class="relative bg-white py-24 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8">
+        <div class="text-center mb-16">
+          <div class="text-fajr-red text-xs tracking-[6px] mb-3 font-bold">SCENE 08 — AWARDS</div>
+          <h2 class="text-4xl md:text-6xl font-extrabold text-fajr-dark leading-tight">افتخارات</h2>
+        </div>
+        <div data-awards-strip class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <article data-award class="border border-fajr-sage/40 p-6 hover:bg-fajr-dark hover:text-white transition-colors group">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-fajr-red fa-num text-2xl font-extrabold">۲۰۲۳</div>
+              <svg class="w-8 h-8 text-fajr-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 9 5-3 5 3-2-9"/></svg>
+            </div>
+            <h3 class="text-lg font-extrabold mb-2">جشنوارهٔ سینمای مستند ملی</h3>
+            <p class="text-sm font-light text-fajr-dark/70 group-hover:text-fajr-sage/80 transition-colors">جایزهٔ بهترین کارگردانی — مستند «روایت‌های شهر»</p>
+          </article>
+          <article data-award class="border border-fajr-sage/40 p-6 hover:bg-fajr-dark hover:text-white transition-colors group">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-fajr-red fa-num text-2xl font-extrabold">۲۰۲۲</div>
+              <svg class="w-8 h-8 text-fajr-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 9 5-3 5 3-2-9"/></svg>
+            </div>
+            <h3 class="text-lg font-extrabold mb-2">جشنوارهٔ فیلم کوتاه تهران</h3>
+            <p class="text-sm font-light text-fajr-dark/70 group-hover:text-fajr-sage/80 transition-colors">جایزهٔ ویژهٔ هیئت داوران — «پردهٔ آخر»</p>
+          </article>
+          <article data-award class="border border-fajr-sage/40 p-6 hover:bg-fajr-dark hover:text-white transition-colors group">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-fajr-red fa-num text-2xl font-extrabold">۲۰۲۱</div>
+              <svg class="w-8 h-8 text-fajr-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 9 5-3 5 3-2-9"/></svg>
+            </div>
+            <h3 class="text-lg font-extrabold mb-2">جشنوارهٔ موسیقی فجر</h3>
+            <p class="text-sm font-light text-fajr-dark/70 group-hover:text-fajr-sage/80 transition-colors">بهترین آهنگسازی فیلم — «آواز باران»</p>
+          </article>
+          <article data-award class="border border-fajr-sage/40 p-6 hover:bg-fajr-dark hover:text-white transition-colors group">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-fajr-red fa-num text-2xl font-extrabold">۲۰۲۰</div>
+              <svg class="w-8 h-8 text-fajr-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 9 5-3 5 3-2-9"/></svg>
+            </div>
+            <h3 class="text-lg font-extrabold mb-2">جایزهٔ وب ایران</h3>
+            <p class="text-sm font-light text-fajr-dark/70 group-hover:text-fajr-sage/80 transition-colors">بهترین طراحی سایت — «گالری نور»</p>
+          </article>
+          <article data-award class="border border-fajr-sage/40 p-6 hover:bg-fajr-dark hover:text-white transition-colors group">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-fajr-red fa-num text-2xl font-extrabold">۲۰۱۹</div>
+              <svg class="w-8 h-8 text-fajr-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 9 5-3 5 3-2-9"/></svg>
+            </div>
+            <h3 class="text-lg font-extrabold mb-2">جشنوارهٔ تلویزیونی ایرانیان</h3>
+            <p class="text-sm font-light text-fajr-dark/70 group-hover:text-fajr-sage/80 transition-colors">بهترین برنامهٔ تلویزیونی — «شب‌نشین»</p>
+          </article>
+          <article data-award class="border border-fajr-sage/40 p-6 hover:bg-fajr-dark hover:text-white transition-colors group">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-fajr-red fa-num text-2xl font-extrabold">۲۰۱۸</div>
+              <svg class="w-8 h-8 text-fajr-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 9 5-3 5 3-2-9"/></svg>
+            </div>
+            <h3 class="text-lg font-extrabold mb-2">نمایشگاه طراحی صحنه</h3>
+            <p class="text-sm font-light text-fajr-dark/70 group-hover:text-fajr-sage/80 transition-colors">منتخب طراحی صحنه — «اپرای کوچک»</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         CTA — to contact page
+         ==================================================== -->
+    <section class="relative bg-fajr-red text-white py-24 md:py-32 overflow-hidden">
+      <div class="absolute inset-0 light-leak opacity-50"></div>
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8 text-center relative z-10">
+        <div class="text-white/60 text-xs tracking-[6px] mb-4 font-bold">SCENE 09 — LET'S BEGIN</div>
+        <h2 class="text-4xl md:text-7xl font-extrabold leading-tight mb-8 text-balance" data-reveal="lines" data-lines="آماده‌اید قصه|بعدی را بسازید؟">
+          بیایید آغاز کنیم.
+        </h2>
+        <p class="text-white/85 text-lg md:text-xl font-light max-w-2xl mx-auto mb-12 leading-relaxed">
+          تیم ما آماده است تا ایدهٔ شما را بشنود و آن را به اثری ماندگار تبدیل کند.
+        </p>
+        <a href="contact.html" class="magnetic inline-flex items-center gap-3 bg-white text-fajr-red px-10 py-5 font-extrabold text-lg hover:bg-fajr-sage transition-colors">
+          <span class="magnetic-inner">تماس با ما</span>
+          <svg class="w-5 h-5 arrow-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ Footer ============ -->
+    <footer class="bg-fajr-dark text-white pt-24 pb-10 relative overflow-hidden">
+      <div class="max-w-[1400px] mx-auto px-5 md:px-8">
+        <div class="grid md:grid-cols-12 gap-12 mb-16">
+          <div class="md:col-span-5">
+            <div class="flex items-center gap-3 mb-6">
+              <svg class="w-10 h-10" viewBox="0 0 100 100" aria-hidden="true">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#C5DCCC" stroke-width="2" opacity="0.3"/>
+                <circle cx="50" cy="50" r="30" fill="none" stroke="#861A1A" stroke-width="3"/>
+                <circle cx="50" cy="50" r="14" fill="none" stroke="#C5DCCC" stroke-width="2"/>
+                <circle cx="50" cy="50" r="5" fill="#C5DCCC"/>
+              </svg>
+              <div>
+                <div class="text-fajr-sage font-light tracking-[6px] text-xs">FAJR FILM</div>
+                <div class="font-extrabold text-lg">فجرفیلم</div>
+              </div>
+            </div>
+            <p class="text-fajr-sage/70 text-sm font-light leading-relaxed mb-6 max-w-md">
+              موسسه فرهنگی هنری فجرفیلم؛ از ایده تا انتشار، همهٔ نیازهای یک تولید سینمایی، زیر یک سقف.
+            </p>
+            <div data-newsletter class="relative max-w-sm">
+              <input type="email" placeholder="ایمیل خود را وارد کنید" class="w-full bg-transparent border-b border-fajr-sage/30 text-white py-3 pr-2 pl-12 outline-none text-sm" aria-label="ایمیل برای خبرنامه" />
+              <button class="absolute left-0 top-1/2 -translate-y-1/2 text-fajr-red" aria-label="عضویت">
+                <svg class="w-5 h-5 arrow-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+              <div class="nl-line absolute bottom-0 right-0 h-0.5 bg-fajr-red" style="width:0%"></div>
+            </div>
+          </div>
+          <div class="md:col-span-2">
+            <h4 class="text-fajr-red text-xs tracking-[4px] font-bold mb-5">صفحات</h4>
+            <ul class="space-y-3 text-sm font-light">
+              <li><a href="index.html" class="text-fajr-sage/80 hover:text-white transition-colors">خانه</a></li>
+              <li><a href="about.html" class="text-fajr-sage/80 hover:text-white transition-colors">درباره ما</a></li>
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">خدمات</a></li>
+              <li><a href="index.html#portfolio" class="text-fajr-sage/80 hover:text-white transition-colors">نمونه‌کارها</a></li>
+              <li><a href="contact.html" class="text-fajr-sage/80 hover:text-white transition-colors">تماس</a></li>
+            </ul>
+          </div>
+          <div class="md:col-span-2">
+            <h4 class="text-fajr-red text-xs tracking-[4px] font-bold mb-5">خدمات</h4>
+            <ul class="space-y-3 text-sm font-light">
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">عکاسی</a></li>
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">آهنگسازی</a></li>
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">طراحی سایت</a></li>
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">مستند</a></li>
+              <li><a href="index.html#services" class="text-fajr-sage/80 hover:text-white transition-colors">تلویزیون</a></li>
+            </ul>
+          </div>
+          <div class="md:col-span-3">
+            <h4 class="text-fajr-red text-xs tracking-[4px] font-bold mb-5">تماس</h4>
+            <ul class="space-y-3 text-sm font-light text-fajr-sage/80">
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 mt-1 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>تهران، خیابان ولیعصر، پلاک ۸۶</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                <span class="fa-num">۰۲۱ ۸۸ ۷۷ ۶۶ ۵۵</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+                <span>hello@fajrfilm.ir</span>
+              </li>
+            </ul>
+            <div class="flex gap-4 mt-6">
+              <a href="#" class="magnetic w-10 h-10 border border-fajr-sage/30 flex items-center justify-center hover:bg-fajr-red hover:border-fajr-red transition-colors" aria-label="اینستاگرام">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+              </a>
+              <a href="#" class="magnetic w-10 h-10 border border-fajr-sage/30 flex items-center justify-center hover:bg-fajr-red hover:border-fajr-red transition-colors" aria-label="تلگرام">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.6l-3.2 14.96c-.24 1.06-.88 1.32-1.78.82l-4.92-3.62-2.37 2.28c-.26.26-.48.48-.98.48l.35-4.96 9.04-8.16c.4-.35-.09-.55-.62-.2L6.43 13.06l-4.86-1.52c-1.06-.33-1.08-1.06.22-1.57l18.96-7.31c.88-.32 1.65.2 1.36 1.94z"/></svg>
+              </a>
+              <a href="#" class="magnetic w-10 h-10 border border-fajr-sage/30 flex items-center justify-center hover:bg-fajr-red hover:border-fajr-red transition-colors" aria-label="یوتیوب">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.46-5.18a3 3 0 00-2.12-2.12C18.74 4.24 12 4.24 12 4.24s-6.74 0-8.42.46a3 3 0 00-2.12 2.12C1 8.5 1 12 1 12s0 3.5.46 5.18a3 3 0 002.12 2.12c1.68.46 8.42.46 8.42.46s6.74 0 8.42-.46a3 3 0 002.12-2.12C23 15.5 23 12 23 12zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center my-12 overflow-hidden">
+          <div data-footer-wordmark class="text-[18vw] md:text-[14vw] leading-none font-extrabold text-fajr-sage/15 select-none">فجرفیلم</div>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-fajr-sage/15 text-fajr-sage/60 text-xs">
+          <div>© ۱۴۰۳ موسسه فرهنگی هنری فجرفیلم. تمام حقوق محفوظ است.</div>
+          <div class="flex items-center gap-6">
+            <a href="#" class="hover:text-white transition-colors">حریم خصوصی</a>
+            <a href="#" class="hover:text-white transition-colors">شرایط استفاده</a>
+          </div>
+        </div>
+      </div>
+      <button id="back-to-top" class="fixed bottom-6 left-6 z-50 w-12 h-12 bg-fajr-red text-white flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500" aria-label="بازگشت به بالا">
+        <svg class="w-5 h-5 spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" stroke-dasharray="2 3"/>
+          <path d="M12 7v10M8 11l4-4 4 4" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </footer>
+  </main>
+
+  <!-- Scripts -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/three-scenes.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <script>
+    window.FajrPageInit = function () {
+      if (window.FajrAnimations) FajrAnimations.initAbout();
+    };
+  </script>
+</body>
+</html>
